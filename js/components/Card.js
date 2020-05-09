@@ -49,11 +49,9 @@ class Card {
   }
 
   like = () => {
-    if (this.card.contains('place-card__like-icon_liked')) {
-      this.card
-        .querySelector('place-card__like-icon_liked')
-        .classList.toggle('place-card__like-icon_liked')
-    }
+    this.card
+      .querySelector('.place-card__like-icon')
+      .classList.toggle('place-card__like-icon_liked')
   }
   remove = () => {
     this.card.remove()

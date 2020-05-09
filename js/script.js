@@ -116,27 +116,6 @@ function toggleBigSizeImage() {
 }
 
 function initCallback() {
-  // коллбэк для щелчка по карточке (лайк, удаление, открытие);
-  cards.addEventListener('click', function(event) {
-    if (event.target.classList.contains('place-card__like-icon')) {
-      // щёлкнули по лайку
-      event.target.classList.toggle('place-card__like-icon_liked')
-    } else {
-      if (event.target.classList.contains('place-card__delete-icon')) {
-        // щёлкнули по иконке удаления
-        cards.removeChild(event.path[2]) //удаляем
-      } else {
-        //вся карточка за исключением иконок лайк и удаления
-        if (event.target.classList.contains('place-card__image')) {
-          //картинка, а не подписи внизу
-          const popupImage = document.querySelector('.popup__image')
-          popupImage.src = event.target.style.backgroundImage.slice(5, -2)
-          toggleBigSizeImage()
-        }
-      }
-    }
-  })
-
   // нажатие на кнопку +
   const button = document.querySelector('.user-info__button')
   button.addEventListener('click', toggleFormAdd)
@@ -293,12 +272,15 @@ function validURL(str) {
   return !!pattern.test(str)
 }
 
-// const cardList = new CardList(initialCards)
-// cardList.render()
-// initCallback()
-;(() => {
-  const cardArray = []
-  initialCards.forEach(item => cardArray.push(new Card(item.name, item.link)))
-  const cardList = new CardList(cards, cardArray)
-  cardList.render()
-})()
+initCallback()
+
+const cardArr = []
+initialCards.forEach(item => cardArr.push(new Card(item)))
+const cardList = new CardList(cards, cardArr)
+cardList.render()
+const popup = new Popup(popupElement)
+cards.addEventListener('clickOnImage', e => {
+  bigSizeImage.content.querySelector('.popup__image').src =
+    e.detail.backgroundImage
+  popup.open(document.importNode(bigSizeImage.content, true))
+})

@@ -1,17 +1,17 @@
 class CardList {
-  constructor(playList, initialCards) {
-    this.playList = playList
-    this.cards = initialCards
+  constructor(cards, initialCards) {
+    this.cards = cards
+    this.initialCards = initialCards
     this.render()
   }
   addCard = item => {
-    this.cards.push(item)
-    this.playList.appendChild(item.create())
+    this.initialCards.push(item)
+    this.cards.appendChild(item.create())
   }
 
   render = () => {
-    this.cards.forEach(item => {
-      this.playList.appendChild(item.create())
+    this.initialCards.forEach(item => {
+      this.cards.appendChild(item.create())
     })
   }
 }
