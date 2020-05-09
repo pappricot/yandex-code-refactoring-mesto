@@ -1,22 +1,9 @@
 class Card {
   constructor(item) {
-    // this.like = this.like.bind(this)
-    // this.remove = this.remove.bind(this)
-
     this.link = item.link
     this.name = item.name
 
-    this.card = this.create() // create DOM
-
-    // dealing with like button
-    // this.card
-    //   .queySelector('.place-card__like-icon')
-    //   .addEventListener('click', this.like)
-
-    // //dealingh with remove button
-    // this.card
-    //   .queySelector('.place-card__delete-icon')
-    //   .addEventListener('click', this.remove)
+    this.card = null
   }
 
   create = () => {
@@ -27,9 +14,17 @@ class Card {
     const imgCard = document.createElement('div')
     imgCard.classList.add('place-card__image')
     imgCard.style.backgroundImage = `url(${this.link})`
+    imgCard.onclick = () =>
+      oneCard.dispatchEvent(
+        new CustomEvent('clickOnImage', {
+          detail: { image: this.link },
+          bubbles: true
+        })
+      )
 
     const btnImgCard = document.createElement('button')
     btnImgCard.classList.add('place-card__delete-icon')
+    btnImgCard.onclick = () => this.remove()
 
     const descCard = document.createElement('div')
     descCard.classList.add('place-card__description')
@@ -40,6 +35,7 @@ class Card {
 
     const btnLike = document.createElement('button')
     btnLike.classList.add('place-card__like-icon')
+    btnLike.onclick = () => this.like()
 
     //сливаем их в один
     oneCard.appendChild(imgCard)
@@ -48,10 +44,18 @@ class Card {
     descCard.appendChild(h3Card)
     descCard.appendChild(btnLike)
 
-    //добавляем карточку на страницу
-    // const cards = document.querySelector('.places-list')
-    // cards.appendChild(oneCard)
-    // return cards
-    return oneCard
+    this.card = oneCard
+    return this.card
+  }
+
+  like = () => {
+    if (this.card.contains('place-card__like-icon_liked')) {
+      this.card
+        .querySelector('place-card__like-icon_liked')
+        .classList.toggle('place-card__like-icon_liked')
+    }
+  }
+  remove = () => {
+    this.card.remove()
   }
 }

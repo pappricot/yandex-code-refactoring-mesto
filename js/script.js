@@ -1,9 +1,4 @@
-//import testCardList from './component/CardList.js'
-//import Popup from './component/Popup.js'
-// import { x } from './components/Card'
-// console.log('test', x)
-
-//const cards = document.querySelector('.places-list')
+const cards = document.querySelector('.places-list')
 const userInfoName = document.querySelector('.user-info__name')
 const userInfoJob = document.querySelector('.user-info__job')
 const formPopupAddCard = document.querySelector('#add-card')
@@ -62,53 +57,6 @@ const initialCards = [
       'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/vladivostok.jpg'
   }
 ]
-
-function addOneCard(name, url) {
-  //формируем все элементы
-  const oneCard = document.createElement('div')
-  oneCard.classList.add('place-card')
-
-  const imgCard = document.createElement('div')
-  imgCard.classList.add('place-card__image')
-  imgCard.style.backgroundImage = `url(${url})`
-
-  const btnImgCard = document.createElement('button')
-  btnImgCard.classList.add('place-card__delete-icon')
-
-  const descCard = document.createElement('div')
-  descCard.classList.add('place-card__description')
-
-  const h3Card = document.createElement('h3')
-  h3Card.classList.add('place-card__name')
-  h3Card.textContent = name
-
-  const btnLike = document.createElement('button')
-  btnLike.classList.add('place-card__like-icon')
-
-  //сливаем их в один
-  oneCard.appendChild(imgCard)
-  imgCard.appendChild(btnImgCard)
-  oneCard.appendChild(descCard)
-  descCard.appendChild(h3Card)
-  descCard.appendChild(btnLike)
-
-  //добавляем карточку на страницу
-  cards.appendChild(oneCard)
-}
-
-// function loadCards() {
-//   initialCards.forEach(function(item) {
-//     addOneCard(item.name, item.link)
-//   })
-// }
-
-// function loadCards() {
-//   initialCards.forEach(function(item) {
-//     const cardLIst = new Card(item)
-//     return cardLIst.card
-//   })
-// }
-const cardList = new CardList(initialCards)
 
 function toggleFormAdd() {
   //коллбэк для открытия и закрытия формы добавления карточки
@@ -345,6 +293,12 @@ function validURL(str) {
   return !!pattern.test(str)
 }
 
-// loadCards()
-cardList.render()
-initCallback()
+// const cardList = new CardList(initialCards)
+// cardList.render()
+// initCallback()
+;(() => {
+  const cardArray = []
+  initialCards.forEach(item => cardArray.push(new Card(item.name, item.link)))
+  const cardList = new CardList(cards, cardArray)
+  cardList.render()
+})()
