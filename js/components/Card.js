@@ -6,7 +6,7 @@ class Card {
     this.link = item.link
     this.name = item.name
 
-    this.card = this.create(this.link, this.name) // create DOM
+    this.card = this.create() // create DOM
 
     // dealing with like button
     // this.card
@@ -19,14 +19,14 @@ class Card {
     //   .addEventListener('click', this.remove)
   }
 
-  create = (link, name) => {
+  create = () => {
     //формируем все элементы
     const oneCard = document.createElement('div')
     oneCard.classList.add('place-card')
 
     const imgCard = document.createElement('div')
     imgCard.classList.add('place-card__image')
-    imgCard.style.backgroundImage = `url(${link})`
+    imgCard.style.backgroundImage = `url(${this.link})`
 
     const btnImgCard = document.createElement('button')
     btnImgCard.classList.add('place-card__delete-icon')
@@ -36,7 +36,7 @@ class Card {
 
     const h3Card = document.createElement('h3')
     h3Card.classList.add('place-card__name')
-    h3Card.textContent = name
+    h3Card.textContent = this.name
 
     const btnLike = document.createElement('button')
     btnLike.classList.add('place-card__like-icon')
@@ -49,8 +49,9 @@ class Card {
     descCard.appendChild(btnLike)
 
     //добавляем карточку на страницу
-    const cards = document.querySelector('.places-list')
-    cards.appendChild(oneCard)
-    return cards
+    // const cards = document.querySelector('.places-list')
+    // cards.appendChild(oneCard)
+    // return cards
+    return oneCard
   }
 }

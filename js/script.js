@@ -3,7 +3,7 @@
 // import { x } from './components/Card'
 // console.log('test', x)
 
-const cards = document.querySelector('.places-list')
+//const cards = document.querySelector('.places-list')
 const userInfoName = document.querySelector('.user-info__name')
 const userInfoJob = document.querySelector('.user-info__job')
 const formPopupAddCard = document.querySelector('#add-card')
@@ -102,12 +102,13 @@ function addOneCard(name, url) {
 //   })
 // }
 
-function loadCards() {
-  initialCards.forEach(function(item) {
-    const newCard = new Card(item)
-    return newCard.create(item.name, item.link)
-  })
-}
+// function loadCards() {
+//   initialCards.forEach(function(item) {
+//     const cardLIst = new Card(item)
+//     return cardLIst.card
+//   })
+// }
+const cardList = new CardList(initialCards)
 
 function toggleFormAdd() {
   //коллбэк для открытия и закрытия формы добавления карточки
@@ -344,5 +345,6 @@ function validURL(str) {
   return !!pattern.test(str)
 }
 
-loadCards()
+// loadCards()
+cardList.render()
 initCallback()
